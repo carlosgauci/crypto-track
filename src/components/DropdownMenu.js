@@ -32,7 +32,7 @@ const DropdownMenu = ({ name, data }) => {
     <div className={`relative w-36 h-8 ${name !== "Add Coin" && "ml-2"}`}>
       {/* Dropdown button */}
       <button
-        className="bg-blue-600 w-full h-full rounded font-semibold text-white text-sm flex items-center justify-center"
+        className="bg-indigo-700 w-full h-full rounded font-semibold text-white text-sm flex items-center justify-center"
         onClick={() => setDropdownActive(!dropdownActive)}
       >
         {name} {name === "Currency" && `(${currency.name.toUpperCase()})`}
