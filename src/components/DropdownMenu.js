@@ -29,29 +29,25 @@ const DropdownMenu = ({ name, data }) => {
   };
 
   return (
-    <div className="relative w-40 h-8">
+    <div className={`relative w-36 h-8 ${name !== "Add Coin" && "ml-2"}`}>
       {/* Dropdown button */}
       <button
-        className={`bg-blue-600 w-full h-full rounded font-semibold text-white flex items-center justify-center ${
-          name !== "Add Coin" && "ml-2"
-        }`}
+        className="bg-blue-600 w-full h-full rounded font-semibold text-white text-sm flex items-center justify-center"
         onClick={() => setDropdownActive(!dropdownActive)}
       >
         {name} {name === "Currency" && `(${currency.name.toUpperCase()})`}
         {/* Caret arrows */}
         {dropdownActive ? (
-          <AiFillCaretDown className="ml-2 text-sm " />
+          <AiFillCaretDown className="ml-1 text-xs " />
         ) : (
-          <AiFillCaretUp className="ml-2 text-sm " />
+          <AiFillCaretUp className="ml-1 text-xs " />
         )}
       </button>
 
       {/* Dropdown list */}
       {dropdownActive && (
         <ul
-          className={`absolute top-10 left-0 w-full bg-blue-600 z-10 rounded-md p-2 text-white flex flex-col items-center ${
-            name !== "Add Coin" && "ml-2"
-          }`}
+          className="absolute top-10 left-0 w-full bg-blue-600 z-10 rounded-md p-2 text-white flex flex-col items-center"
           ref={dropdownRef}
         >
           {data.map((item) => (
