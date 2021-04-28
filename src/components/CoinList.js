@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCoinData, fetchCoinData } from "../actions/CoinActions";
 import Coin from "./Coin";
 import Options from "./Options";
+import Loader from "./Loader";
 
 const CoinList = () => {
   const watchList = useSelector((state) => state.tracking);
   const data = useSelector((state) => state.coinData);
   const currency = useSelector((state) => state.currency);
+  const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
   // Fetch coin data from the CoinGecko API on load and when the watchList changes
@@ -36,6 +38,9 @@ const CoinList = () => {
       {data.map((coin) => (
         <Coin key={coin.id} coin={coin} />
       ))}
+
+      {/* Loader */}
+      {loading && <Loader />}
     </section>
   );
 };
