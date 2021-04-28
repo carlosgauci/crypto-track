@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeCoin } from "../actions/CoinActions";
 import { IoClose } from "react-icons/io5";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 
 const Coin = ({
   coin: {
@@ -25,7 +26,7 @@ const Coin = ({
   };
 
   return (
-    <article className="grid grid-cols-3 md:grid-cols-5 bg-white w-full h-14 px-4 rounded-md mb-2 place-items-center relative group">
+    <article className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 bg-white w-full h-14 px-4 rounded-md mb-2 place-items-center relative group">
       {/* Coin image & symbol */}
       <div className="grid grid-cols-2 place-items-center">
         <img src={image} alt={name} className="w-8 h-8 mr-3" />
@@ -39,13 +40,21 @@ const Coin = ({
       </p>
 
       {/* 24h change */}
-      <p className={`${change > 0 ? "text-green-600" : "text-red-500"}`}>
-        {change > 0 && "+"}
-        {change.toFixed(2)}%
+      <p
+        className={`flex items-center ${
+          change > 0 ? "text-green-600" : "text-red-500"
+        }`}
+      >
+        {change >= 0 ? (
+          <AiFillCaretUp className="mr-1" />
+        ) : (
+          <AiFillCaretDown className="mr-1" />
+        )}
+        {Math.abs(change).toFixed(2)}%
       </p>
 
       {/* 24h volume */}
-      <p className="hidden md:block ">
+      <p className="hidden lg:block ">
         {currency}
         {total_volume.toLocaleString()}
       </p>

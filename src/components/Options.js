@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import DropdownMenu from "./DropdownMenu";
 import coins from "../constants/coinList";
 import currency from "../constants/currencyList";

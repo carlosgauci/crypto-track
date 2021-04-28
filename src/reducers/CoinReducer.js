@@ -7,10 +7,19 @@ import {
 } from "../constants/actionTypes";
 
 const initState = {
-  tracking: ["bitcoin", "ethereum", "ripple", "litecoin", "dogecoin"],
+  tracking: [
+    "bitcoin",
+    "ethereum",
+    "binancecoin",
+    "ripple",
+    "tether",
+    "cardano",
+    "litecoin",
+    "dogecoin",
+  ],
   currency: {
-    name: "usd",
-    symbol: "$",
+    name: "eur",
+    symbol: "€",
   },
   coinData: [],
   loading: false,
