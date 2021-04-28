@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeCoin } from "../actions/CoinActions";
 import { IoClose } from "react-icons/io5";
 
@@ -17,7 +17,9 @@ const Coin = ({
 }) => {
   const dispatch = useDispatch();
 
-  //   Remove the coin from the watchList
+  const currency = useSelector((state) => state.currency.symbol);
+
+  // Remove the coin from the watchList
   const handleRemoveCoin = (e) => {
     dispatch(removeCoin(id));
   };
@@ -31,7 +33,10 @@ const Coin = ({
       </div>
 
       {/* Price */}
-      <p>{current_price.toLocaleString()}</p>
+      <p>
+        {currency}
+        {current_price.toLocaleString()}
+      </p>
 
       {/* 24h change */}
       <p className={`${change > 0 ? "text-green-600" : "text-red-500"}`}>
@@ -40,10 +45,16 @@ const Coin = ({
       </p>
 
       {/* 24h volume */}
-      <p className="hidden md:block ">{total_volume.toLocaleString()}</p>
+      <p className="hidden md:block ">
+        {currency}
+        {total_volume.toLocaleString()}
+      </p>
 
       {/* Market cap */}
-      <p className="hidden md:block ">{market_cap.toLocaleString()}</p>
+      <p className="hidden md:block ">
+        {currency}
+        {market_cap.toLocaleString()}
+      </p>
 
       {/* Remove coin button */}
       <IoClose

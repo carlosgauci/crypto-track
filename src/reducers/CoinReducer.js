@@ -1,4 +1,10 @@
-import { ADD_COIN, REMOVE_COIN, SET_COIN_DATA } from "../constants/actionTypes";
+import {
+  ADD_COIN,
+  REMOVE_COIN,
+  SET_COIN_DATA,
+  CHANGE_CURRENCY,
+  SET_LOADING,
+} from "../constants/actionTypes";
 
 const initState = {
   tracking: ["bitcoin", "ethereum", "ripple", "litecoin", "dogecoin"],
@@ -23,6 +29,15 @@ export const coinReducer = (state = initState, action) => {
 
     case SET_COIN_DATA:
       return { ...state, coinData: action.data };
+
+    case CHANGE_CURRENCY:
+      return {
+        ...state,
+        currency: { name: action.data.name, symbol: action.data.symbol },
+      };
+
+    case SET_LOADING:
+      return { ...state, loading: action.loading };
 
     default:
       return state;

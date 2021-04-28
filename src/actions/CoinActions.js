@@ -1,4 +1,10 @@
-import { ADD_COIN, REMOVE_COIN, SET_COIN_DATA } from "../constants/actionTypes";
+import {
+  ADD_COIN,
+  REMOVE_COIN,
+  SET_COIN_DATA,
+  CHANGE_CURRENCY,
+  SET_LOADING,
+} from "../constants/actionTypes";
 
 import axios from "axios";
 
@@ -17,20 +23,33 @@ export const setCoinData = (data) => {
   return { type: SET_COIN_DATA, data };
 };
 
+// Change currency
+export const changeCurrency = (name, symbol) => {
+  return { type: CHANGE_CURRENCY, data: { name, symbol } };
+};
+
+// Set loading state
+export const setLoading = (loading) => {
+  return { type: SET_LOADING, loading };
+};
+
 // Fetch coin data from the CoinGecko API
-export const fetchCoinData = (watchList) => async (dispatch) => {
+export const fetchCoinData = (currency, watchList) => async (dispatch) => {
   try {
+    dispatch(setLoading(true));
     const response = await axios.get(
       "https://api.coingecko.com/api/v3/coins/markets",
       {
         params: {
-          vs_currency: "usd",
+          vs_currency: currency.name,
           ids: watchList.join(),
         },
       }
     );
     dispatch(setCoinData(response.data));
+    dispatch(setLoading(false));
   } catch (error) {
+    dispatch(setLoading(false));
     console.log(error);
   }
 };
