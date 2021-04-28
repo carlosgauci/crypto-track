@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCoinData, fetchCoinData } from "../actions/CoinActions";
 import Coin from "./Coin";
 
 const CoinList = () => {
+  const watchList = useSelector((state) => state.tracking);
+  const data = useSelector((state) => state.coinData);
+  const dispatch = useDispatch();
+
+  // Fetch coin data from the CoinGecko API on load and when the watchList changes
+  useEffect(() => {
+    if (watchList.length > 0) {
+      dispatch(fetchCoinData(watchList));
+    } else {
+      dispatch(setCoinData([]));
+    }
+  }, [watchList, dispatch]);
+
   return (
     <section className="container bg-gray-300 w-full rounded-md p-2 relative">
       {/* Coin list header */}
@@ -14,7 +29,9 @@ const CoinList = () => {
       </div>
 
       {/* Coins */}
-      <Coin />
+      {data.map((coin) => (
+        <Coin key={coin.id} coin={coin} />
+      ))}
     </section>
   );
 };
