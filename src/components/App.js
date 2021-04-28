@@ -7,7 +7,9 @@ const App = () => {
   return (
     <>
       <Header />
-      <CoinList />
+      <main>
+        <CoinList />
+      </main>
       <Footer />
     </>
   );
