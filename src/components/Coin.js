@@ -26,7 +26,7 @@ const Coin = ({
   };
 
   return (
-    <article className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 bg-white w-full h-14 px-4 rounded-md mb-2 place-items-center relative group">
+    <article className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 bg-white w-full h-14 px-4 rounded-md mt-2 place-items-center relative group">
       {/* Coin image & symbol */}
       <div className="grid grid-cols-2 place-items-center">
         <img src={image} alt={name} className="w-8 h-8 mr-3" />

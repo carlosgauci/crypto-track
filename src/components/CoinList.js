@@ -22,7 +22,7 @@ const CoinList = () => {
   }, [watchList, currency, dispatch]);
 
   return (
-    <section className="container bg-gray-300 w-full rounded-md p-2 relative">
+    <section className="container bg-gray-300 w-full rounded-t-md p-2 relative">
       <Options />
 
       {/* Coin list header */}
