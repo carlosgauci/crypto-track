@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCoinData, fetchCoinData, setSorting } from "../actions/CoinActions";
+import { setCoinData, fetchCoinData } from "../actions/CoinActions";
+import TableHeader from "./TableHeader";
 import Coin from "./Coin";
 import Options from "./Options";
 import Loader from "./Loader";
@@ -13,54 +14,30 @@ const CoinList = () => {
   const sorting = useSelector((state) => state.sorting);
   const dispatch = useDispatch();
 
-  // Fetch coin data from the CoinGecko API on load and when the watchList changes
+  // Fetch coin data from the API on load and when the watchList or currency changes
   useEffect(() => {
     if (watchList.length > 0) {
       dispatch(fetchCoinData(currency, watchList, sorting));
     } else {
       dispatch(setCoinData([]));
     }
+    // Disable missing dependency error (sorting) since we dont want to fetch data again when we sort
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchList, currency, dispatch]);
 
   // Sort the data when sorting settings change
   useEffect(() => {
     dispatch(setCoinData(data, sorting));
+    // Disable missing dependency error (data) since setCoinData is updating data, and it will cause a loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting, dispatch]);
 
   return (
     <section className="container bg-gray-300 w-full rounded-t-md p-2 relative">
       <Options />
 
-      {/* Coin list header */}
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center font-semibold mb-2  bg-gray-700 text-white w-full py-2 px-4 rounded-md">
-        <p onClick={() => dispatch(setSorting("symbol", !sorting.order))}>
-          Coin
-        </p>
-        <p
-          onClick={() => dispatch(setSorting("current_price", !sorting.order))}
-        >
-          Price
-        </p>
-        <p
-          onClick={() =>
-            dispatch(setSorting("price_change_percentage_24h", !sorting.order))
-          }
-        >
-          24h Change
-        </p>
-        <p
-          className="hidden lg:block"
-          onClick={() => dispatch(setSorting("total_volume", !sorting.order))}
-        >
-          24h Volume
-        </p>
-        <p
-          className="hidden md:block"
-          onClick={() => dispatch(setSorting("market_cap", !sorting.order))}
-        >
-          Market Cap
-        </p>
-      </div>
+      {/* Table header */}
+      <TableHeader />
 
       {/* Coins */}
       {data.map((coin) => (
