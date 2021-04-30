@@ -4,6 +4,7 @@ import {
   SET_COIN_DATA,
   CHANGE_CURRENCY,
   SET_LOADING,
+  SET_SORTING,
 } from "../constants/actionTypes";
 
 const initState = {
@@ -23,6 +24,10 @@ const initState = {
   },
   coinData: [],
   loading: false,
+  sorting: {
+    heading: "market_cap",
+    order: false,
+  },
 };
 
 export const coinReducer = (state = initState, action) => {
@@ -47,6 +52,12 @@ export const coinReducer = (state = initState, action) => {
 
     case SET_LOADING:
       return { ...state, loading: action.loading };
+
+    case SET_SORTING:
+      return {
+        ...state,
+        sorting: action.data,
+      };
 
     default:
       return state;

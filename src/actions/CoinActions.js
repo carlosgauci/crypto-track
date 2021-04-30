@@ -4,6 +4,7 @@ import {
   SET_COIN_DATA,
   CHANGE_CURRENCY,
   SET_LOADING,
+  SET_SORTING,
 } from "../constants/actionTypes";
 
 import axios from "axios";
@@ -18,9 +19,30 @@ export const removeCoin = (coin) => {
   return { type: REMOVE_COIN, coin };
 };
 
-// Set the fetched coin data in the redux store
-export const setCoinData = (data) => {
-  return { type: SET_COIN_DATA, data };
+// Sort the data and set it to state
+export const setCoinData = (data, sorting) => {
+  // Sort compare function
+  const compare = (a, b) => {
+    // Ascending
+    if (sorting.order) {
+      if (a[sorting.heading] > b[sorting.heading]) {
+        return 1;
+      } else {
+        return -1;
+      }
+    } else {
+      // Descending
+      if (a[sorting.heading] > b[sorting.heading]) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+  };
+
+  const sortedData = [...data].sort(compare);
+
+  return { type: SET_COIN_DATA, data: sortedData };
 };
 
 // Change currency
@@ -33,8 +55,15 @@ export const setLoading = (loading) => {
   return { type: SET_LOADING, loading };
 };
 
+// Set sorting settings to state
+export const setSorting = (heading, order) => {
+  return { type: SET_SORTING, data: { heading, order } };
+};
+
 // Fetch coin data from the CoinGecko API
-export const fetchCoinData = (currency, watchList) => async (dispatch) => {
+export const fetchCoinData = (currency, watchList, sorting) => async (
+  dispatch
+) => {
   try {
     dispatch(setLoading(true));
     const response = await axios.get(
@@ -46,7 +75,7 @@ export const fetchCoinData = (currency, watchList) => async (dispatch) => {
         },
       }
     );
-    dispatch(setCoinData(response.data));
+    await dispatch(setCoinData(response.data, sorting));
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setLoading(false));
