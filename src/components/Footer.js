@@ -3,7 +3,7 @@ import { AiOutlineGithub } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="container flex flex-col items-center bg-gray-900 rounded-b-md rounded-l-mb py-2 text-white">
+    <footer className="container flex flex-col items-center bg-gray-900 rounded-b-md rounded-l-mb py-4 text-white md:mb-4">
       <a
         href="https://github.com/carlosgauci/crypto-track"
         target="_blank"
