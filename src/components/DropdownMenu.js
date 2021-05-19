@@ -47,14 +47,14 @@ const DropdownMenu = ({ name, data }) => {
       {/* Dropdown list */}
       {dropdownActive && (
         <ul
-          className="absolute top-10 left-0 w-full bg-blue-600 z-10 rounded-md p-2 text-white flex flex-col items-center"
+          className="absolute top-10 left-0 w-full bg-indigo-700 z-10 rounded-md overflow-hidden text-white flex flex-col items-center"
           ref={dropdownRef}
         >
           {data.map((item) => (
             <li
               key={item.id}
               onClick={() => handleClick(item.id, item.symbol)}
-              className="cursor-pointer"
+              className="cursor-pointer py-0.5 px-2 hover:bg-indigo-500 w-full text-center"
             >
               {name === "Add Coin" && item.name}
               {name === "Currency" && item.name + " " + item.symbol}
